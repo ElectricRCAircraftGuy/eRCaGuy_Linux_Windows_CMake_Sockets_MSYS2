@@ -5,6 +5,7 @@ A demo of an elegant, cross-platform, multi-layered build system project which b
 
 # References
 
+1. My repo: https://github.com/ElectricRCAircraftGuy/eRCaGuy_dotfiles/tree/master/CMake
 1. My answer: [Installing & setting up MSYS2 from scratch, including adding all 7 profiles to Windows Terminal...](https://stackoverflow.com/a/77407282/4561887)
     1. [Part 2 of the above answer](https://stackoverflow.com/a/79203485/4561887) - I talk about sockets and DLLs here. 
 1. My answer: [How to package a "portable" MSYS2-built Windows application with all required DLLs to run in any Windows environment or terminal](https://stackoverflow.com/a/79569000/4561887)
