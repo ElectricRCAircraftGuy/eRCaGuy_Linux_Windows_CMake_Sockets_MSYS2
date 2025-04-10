@@ -54,7 +54,7 @@ cmake --version  # Should be 4.0.0
 _Tested in Windows 11._
 
 1. Install MSYS2, following my answer here: [Installing & setting up MSYS2 from scratch, including adding all 7 profiles to Windows Terminal...](https://stackoverflow.com/a/77407282/4561887)
-1. In the **msys2** terminal, since it has cygwin as its C library and supports Unix sockets on Windows, run the following:
+1. In the base **msys2** terminal, since it has cygwin as its C library and supports Unix sockets on Windows, run the following:
     ```bash
     # Update the package database and core system packages; run repeatedly
     # until no more updates are available
@@ -88,6 +88,10 @@ _Tested in Windows 11._
 
 
 # Build Instructions
+
+All commands are to be run in a regular Bash terminal in Linux, or in [the base `msys` terminal from MSYS2 in Windows](https://stackoverflow.com/a/77407282/4561887). 
+
+The reason is that: of the 7 terminals provided by MSYS2, I believe the base `msys` one is the only one that supports building Unix sockets on Windows. 
 
 ```bash
 # Clean and build everything
