@@ -168,6 +168,8 @@ _Tested and works on:_
 1. _[x] Linux Ubuntu 22.04_
 1. _[x] Windows 11_
 
+Steps:
+
 1. Build:
     ```bash
     make clean
