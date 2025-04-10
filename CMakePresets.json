@@ -1,0 +1,98 @@
+{
+    "version": 10,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 31,
+        "patch": 0
+    },
+
+    "$comment": [
+        "Configure Presets",
+        "- Equivalent to calling `cmake [options]`",
+        "- Call with `cmake --preset <name>`",
+        "- List all configure presets with `cmake --list-presets`",
+        "",
+        "Build Presets",
+        "- Equivalent to calling `cmake --build <dir> [options]`",
+        "- Call with `cmake --build --preset <name>`",
+        "- List all build presets with `cmake --build --list-presets`",
+        "",
+        "Test Presets",
+        "- Equivalent to calling `ctest [options]`",
+        "- Call with `ctest --preset <name>`",
+        "- List all test presets with `ctest --list-presets`"
+    ],
+
+    "configurePresets": [
+        {
+            "name": "base_configure",
+            "hidden": true,
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/${presetName}"
+        },
+        {
+            "name": "x86_64_configure",
+            "inherits": "base_configure",
+            "hidden": true
+        },
+        {
+            "name": "Debug",
+            "inherits": "x86_64_configure",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_C_FLAGS_DEBUG_INIT": "--coverage",
+                "CMAKE_CXX_FLAGS_DEBUG_INIT": "--coverage"
+            }
+        },
+        {
+            "name": "Release",
+            "inherits": "x86_64_configure",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ],
+
+    "buildPresets": [
+        {
+            "name": "base_build",
+            "hidden": true,
+            "$comment": "Specify 0 jobs to use all cores available",
+            "jobs": 0
+        },
+        {
+            "name": "Debug",
+            "inherits": "base_build",
+            "configurePreset": "Debug"
+        },
+        {
+            "name": "Release",
+            "inherits": "base_build",
+            "configurePreset": "Release"
+        }
+    ],
+
+    "testPresets": [
+        {
+            "name": "base_test",
+            "hidden": true,
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "Debug",
+            "inherits": "base_test",
+            "configurePreset": "Debug"
+        },
+        {
+            "name": "Release",
+            "inherits": "base_test",
+            "configurePreset": "Release"
+        }
+    ]
+}
