@@ -72,8 +72,15 @@ _Tested in Windows 11._
     # Install gdb
     pacman -S gdb
 
+    # --------------------------------------------------------------
+    # Optional (used by me, but not required to build this project):
+    # --------------------------------------------------------------
+
     # Install ccache
     pacman -S ccache
+
+    # Install tree
+    pacman -S tree
     ```
 1. Run `make clean` before building again. 
 1. Build and run with: 
@@ -213,3 +220,35 @@ _Tested and works on:_
     Msg received from sender (server) (19 bytes):
       Hello from server.
     ```
+
+
+# File layout of the `build` dir after building
+
+```bash
+gabriel@computer MSYS ~/GS/dev/eRCaGuy_Linux_Windows_CMake_Sockets_MSYS2
+$ tree -L 2 build
+build
+├── Debug
+│   ├── Client.exe
+│   ├── cmake_install.cmake
+│   ├── CMakeCache.txt
+│   ├── CMakeFiles
+│   ├── compile_commands.json
+│   ├── Makefile
+│   └── Server.exe
+├── Portable
+│   ├── Client.exe
+│   ├── KERNEL32.DLL
+│   ├── KERNELBASE.dll
+│   ├── msys-2.0.dll
+│   ├── ntdll.dll
+│   └── Server.exe
+└── Release
+    ├── Client.exe
+    ├── cmake_install.cmake
+    ├── CMakeCache.txt
+    ├── CMakeFiles
+    ├── compile_commands.json
+    ├── Makefile
+    └── Server.exe
+```
