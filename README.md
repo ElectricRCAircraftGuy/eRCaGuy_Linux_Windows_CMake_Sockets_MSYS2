@@ -148,3 +148,63 @@ time make release && ./build/Release/Server  # in one terminal
 # Create the portable directory with packaged DLLs
 make portable 
 ```
+
+
+# Example run and output
+
+_Tested and works on:_
+1. _[x] Linux Ubuntu 22.04_
+1. _[x] Windows 11_
+
+1. Build:
+    ```bash
+    make clean
+    make
+    ```
+
+1. Run the server in one terminal:
+    ```bash
+    ./build/Portable/Server
+    ```
+
+1. Run the client in another terminal:
+    ```bash
+    ./build/Portable/Client
+    ```
+
+1. Here is the output from the server in terminal 1: 
+    ```bash
+    eRCaGuy_Linux_Windows_CMake_Sockets_MSYS2$ ./build/Portable/Server 
+    STARTING UDP SERVER:
+    1. Create a socket object, obtain a file descriptor to it, and prepare server and client `struct sockaddr_in` internet namespace ("in") socket addresses.
+    2. Bind the socket object with the server address specified above so that it can be used.
+    3. Block until a message is received.
+    4. Process the received message, & print out address info. of the sender, followed by the message!
+    Sender (client) address information:
+      socket internet namespace (sin) address family name = AF_INET (IPv4 address)
+      port                                                = 36703
+      IP address                                          = 127.0.0.1
+    Msg received from sender (client) (19 bytes):
+      Hello from client.
+    5. Send a response back to the sender of the message we just received.
+    Done! This msg was just sent to the client:
+      Hello from server.
+    ```
+
+1. Here is the output from the client in terminal 2: 
+    ```bash
+    eRCaGuy_Linux_Windows_CMake_Sockets_MSYS2$ ./build/Portable/Client 
+    STARTING UDP CLIENT:
+    1. Create a socket object and obtain a file descriptor to it.
+    2. Send a message to the server.
+    Done! This msg was just sent to the server:
+      Hello from client.
+    3. Block until a message is received.
+    4. Process the received message, & print out address info. of the sender, followed by the message!
+    Sender (server) address information:
+      socket internet namespace (sin) family name = AF_INET (IPv4 address)
+      port                                        = 20000
+      IP address                                  = 127.0.0.1
+    Msg received from sender (server) (19 bytes):
+      Hello from server.
+    ```

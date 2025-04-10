@@ -125,7 +125,7 @@ Ans: https://linux.die.net/man/7/ip
 #define MAX_RECEIVE_BUFFER_SIZE 4096  // in bytes
 
 static const uint16_t PORT = 20000;
-_Static_assert(sizeof(uint16_t) == sizeof(unsigned short),
+static_assert(sizeof(uint16_t) == sizeof(unsigned short),
     "`htons()` expects an unsigned short, and the PORT is uint16_t, so let's ensure they match "
     "for this system or else you'll have to replace `htons()` with a different function "
     "call.\n");
@@ -149,8 +149,9 @@ int main()
     if (socket_fd == -1)
     {
         printf("Failed to create socket. errno = %i: %s\n", errno, strerror(errno));
-        goto cleanup; // consider replacing this with `exit(EXIT_FAILURE);` instead, in order to
+        // goto cleanup; // consider replacing this with `exit(EXIT_FAILURE);` instead, in order to
                       // try to quickly get this code compiling in C++/gnu++
+        return 1;
     }
 
     // Internet namespace socket addresses
@@ -201,7 +202,9 @@ int main()
     {
         printf("Failed to generate a network address from an ASCII string address. Input address "
                "ASCII string is invalid.\n");
-        goto cleanup;
+        // goto cleanup;
+        close(socket_fd);
+        return 1;
     }
     //
     // Option 3/3 [RECOMMENDED OVER `inet_aton()` above!]: even better than using the
@@ -243,7 +246,9 @@ int main()
     if (retcode == -1)
     {
         printf("Failed to bind socket. errno = %i: %s\n", errno, strerror(errno));
-        goto cleanup;
+        // goto cleanup;
+        close(socket_fd);
+        return 1;
     }
 
     // =============================================================================================
@@ -289,7 +294,9 @@ int main()
     if (num_bytes_received == -1)
     {
         printf("Failed to receive data. errno = %i: %s\n", errno, strerror(errno));
-        goto cleanup;
+        // goto cleanup;
+        close(socket_fd);
+        return 1;
     }
     else if (num_bytes_received == 0)
     {
@@ -367,7 +374,9 @@ int main()
         printf("Failed to convert internet IP address from \"network\" format (binary, "
                "Big-Endian byte order) to \"presentation\" (textual) format. "
                "errno = %i: %s\n", errno, strerror(errno));
-        goto cleanup;
+        // goto cleanup;
+        close(socket_fd);
+        return 1;
     }
 
     // Print the sender address information (Address Family, Port, and IP address)
@@ -416,14 +425,16 @@ int main()
     if (num_bytes_sent == -1)
     {
         printf("Failed to send to client. errno = %i: %s\n", errno, strerror(errno));
-        goto cleanup;
+        // goto cleanup;
+        close(socket_fd);
+        return 1;
     }
 
     printf("Done! This msg was just sent to the client:\n"
            "  %s\n", msg_to_send);
 
 
-cleanup:
+// cleanup:
     if (socket_fd != -1)
     {
         close(socket_fd);

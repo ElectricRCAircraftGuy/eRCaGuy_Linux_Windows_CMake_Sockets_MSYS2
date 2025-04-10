@@ -2,7 +2,7 @@
 # which generates Makefiles and builds with make. 
 
 # Mark all targets as PHONY (not real files)
-.PHONY: all clean build
+.PHONY: all clean debug release portable
 all: \
 	debug \
 	release \
@@ -21,4 +21,5 @@ release:
 
 # Build a portable distribution of the executables and DLLs in a single dir
 portable:
-	./make_portable.sh
+	./make_portable.sh "Client"
+	./make_portable.sh "Server"

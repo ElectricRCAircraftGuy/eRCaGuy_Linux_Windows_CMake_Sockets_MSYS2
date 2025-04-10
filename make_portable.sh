@@ -21,6 +21,8 @@
 # LD_LIBRARY_PATH=. ./your_program
 # ```
 
+EXECUTABLE_NAME="$1"
+
 # See here: https://stackoverflow.com/a/60157372/4561887
 FULL_PATH_TO_SCRIPT="$(realpath "${BASH_SOURCE[0]}")"
 SCRIPT_DIRECTORY="$(dirname "$FULL_PATH_TO_SCRIPT")"
@@ -28,7 +30,7 @@ SCRIPT_DIRECTORY="$(dirname "$FULL_PATH_TO_SCRIPT")"
 PORTABLE_DIR="build/Portable"
 # Note that `.exe` on Windows is optional. "build/Release/your_program" and
 # "build/Release/your_program.exe" are equivalent.
-PATH_TO_RELEASE_PROGRAM="build/Release/your_program"
+PATH_TO_RELEASE_PROGRAM="build/Release/${EXECUTABLE_NAME}"
 
 cd "$SCRIPT_DIRECTORY"
 mkdir -p "${PORTABLE_DIR}"
@@ -50,17 +52,17 @@ done
 # Also copy the executable over
 cp "${PATH_TO_RELEASE_PROGRAM}" "${PORTABLE_DIR}"
 
-echo "Portable directory created at \"${PORTABLE_DIR}/\"."
+echo "  Portable directory created at \"${PORTABLE_DIR}/\"."
 
 echo ""
 echo \
-    "To run the program in Windows, navigate to \"${PORTABLE_DIR}/\" and" \
+    "  To run the program in Windows, navigate to \"${PORTABLE_DIR}/\" and" \
     "run it in any terminal including Git Bash, Command Prompt, PowerShell," \
     "or by double-clicking the executable in File Explorer."
 echo ""
 echo \
-    "To run the program in Linux with those shared object files, cd to" \
+    "  To run the program in Linux with those shared object files, cd to" \
     "\"${PORTABLE_DIR}/\" and run it, like this:"
-echo "cd \"${PORTABLE_DIR}/\""
-echo "LD_LIBRARY_PATH=. ./your_program"
+echo "    cd \"${PORTABLE_DIR}/\""
+echo "    LD_LIBRARY_PATH=. ./your_program"
 echo ""

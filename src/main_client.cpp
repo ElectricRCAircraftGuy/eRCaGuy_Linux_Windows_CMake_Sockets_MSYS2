@@ -80,7 +80,7 @@ References:
 #define MAX_RECEIVE_BUFFER_SIZE 4096  // in bytes
 
 static const uint16_t PORT = 20000;
-_Static_assert(sizeof(uint16_t) == sizeof(unsigned short),
+static_assert(sizeof(uint16_t) == sizeof(unsigned short),
     "`htons()` expects an unsigned short, and the PORT is uint16_t, so let's ensure they match "
     "for this system or else you'll have to replace `htons()` with a different function "
     "call.\n");
@@ -103,7 +103,8 @@ int main()
     if (socket_fd == -1)
     {
         printf("Failed to create socket. errno = %i: %s\n", errno, strerror(errno));
-        goto cleanup;
+        // goto cleanup;
+        return 1;
     }
 
     struct sockaddr_in addr_server;
@@ -125,7 +126,9 @@ int main()
     if (num_bytes_sent == -1)
     {
         printf("Failed to send to server. errno = %i: %s\n", errno, strerror(errno));
-        goto cleanup;
+        // goto cleanup;
+        close(socket_fd);
+        return 1;
     }
 
     printf("Done! This msg was just sent to the server:\n"
@@ -159,7 +162,9 @@ int main()
     if (num_bytes_received == -1)
     {
         printf("Failed to receive data. errno = %i: %s\n", errno, strerror(errno));
-        goto cleanup;
+        // goto cleanup;
+        close(socket_fd);
+        return 1;
     }
     else if (num_bytes_received == 0)
     {
@@ -218,7 +223,7 @@ int main()
         num_bytes_received, receive_buf);
 
 
-cleanup:
+// cleanup:
     if (socket_fd != -1)
     {
         close(socket_fd);
