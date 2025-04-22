@@ -15,6 +15,7 @@ A demo of an elegant, cross-platform, multi-layered build system project which b
     1. All commands: https://cmake.org/cmake/help/latest/manual/cmake-commands.7.html
     1. `CMakePresets.json` and `CMakeUserPresets.json`: https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
 1. My full `git submodule` tutorial: https://gabrielstaples.com/git-submodule-guide/
+1. GoogleTest: [Quickstart: Building with CMake](https://google.github.io/googletest/quickstart-cmake.html)
 
 
 # Linux Setup
