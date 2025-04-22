@@ -20,6 +20,9 @@
 #pragma once
 
 #pragma message(">>> Detecting your platform... <<<")
+
+// Automatically defined by your compiler/OS/platform
+
 #ifdef unix
     #pragma message("Compiling on unix")
 #endif
@@ -56,6 +59,48 @@
 #ifdef __MINGW64__
     #pragma message("Compiling on __MINGW64__")
 #endif
+#ifdef __MSYS__
+    #pragma message("Compiling on __MSYS__")
+#endif
 #ifdef __GNUC__
     #pragma message("Compiling on __GNUC__")
+#endif
+
+// Custom `MSYSTEM_*` definitions added by me directly via CMakeLists.txt.
+// - This is based on the fact that possible `MSYSTEM` environment variable 
+//   values set by the MSYS2 terminal environment on Windows include:
+//  
+//   1. MSYS
+//   2. MINGW32
+//   3. MINGW64
+//   4. UCRT64
+//   5. CLANG64
+//   6. CLANG32
+//   7. CLANGARM64
+// 
+// - See my answer here: https://stackoverflow.com/a/79201770/4561887
+
+#ifdef MSYSTEM_MSYS
+    #pragma message("Compiling on MSYSTEM_MSYS")
+#endif
+#ifdef MSYSTEM_MINGW32
+    #pragma message("Compiling on MSYSTEM_MINGW32")
+#endif
+#ifdef MSYSTEM_MINGW64
+    #pragma message("Compiling on MSYSTEM_MINGW64")
+#endif
+#ifdef MSYSTEM_UCRT64
+    #pragma message("Compiling on MSYSTEM_UCRT64")
+#endif
+#ifdef MSYSTEM_CLANG64
+    #pragma message("Compiling on MSYSTEM_CLANG64")
+#endif
+#ifdef MSYSTEM_CLANG32
+    #pragma message("Compiling on MSYSTEM_CLANG32")
+#endif
+#ifdef MSYSTEM_CLANGARM64
+    #pragma message("Compiling on MSYSTEM_CLANGARM64")
+#endif
+#ifdef MSYSTEM_NOTSET
+    #pragma message("Compiling on MSYSTEM_NOTSET (ie: probably Linux)")
 #endif

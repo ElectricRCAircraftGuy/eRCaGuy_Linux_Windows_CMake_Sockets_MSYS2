@@ -1,6 +1,26 @@
 cmake_minimum_required(VERSION 3.23)
 project(Sockets)
 
+# Get MSYSTEM environment variable and define it for C and C++ code. 
+# - Example `MSYSTEM` values in MSYS2 on Windows are as follows. 
+#   See my answer here: https://stackoverflow.com/a/79201770/4561887
+#   1. MSYS
+#   2. MINGW32
+#   3. MINGW64
+#   4. UCRT64
+#   5. CLANG64
+#   6. CLANG32
+#   7. CLANGARM64
+# - See what `MSYSTEM` is set to by searching 
+#   "build/Release/compile_commands.json", for instance, for `-DMSYSTEM` 
+#   after building.
+set(MSYSTEM_VALUE $ENV{MSYSTEM})
+if(MSYSTEM_VALUE)
+    add_compile_definitions("MSYSTEM_${MSYSTEM_VALUE}")
+else()
+    add_compile_definitions("MSYSTEM_NOTSET")
+endif()
+
 # Generate a compile_commands.json file for use with clangd. 
 # - See: https://cmake.org/cmake/help/latest/variable/CMAKE_EXPORT_COMPILE_COMMANDS.html
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
