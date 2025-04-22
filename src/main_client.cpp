@@ -43,7 +43,7 @@ References:
 // Client-side implementation of UDP server-client model
 
 // local includes
-// None
+#include "platform.h"
 
 // Linux Includes
 #include <arpa/inet.h>
