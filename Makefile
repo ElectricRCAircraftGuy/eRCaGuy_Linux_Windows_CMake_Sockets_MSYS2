@@ -2,11 +2,12 @@
 # which generates Makefiles and builds with make. 
 
 # Mark all targets as PHONY (not real files)
-.PHONY: all clean debug release portable
+.PHONY: all clean debug release portable test
 all: \
 	debug \
 	release \
-	portable
+	portable \
+	test
 
 clean:
 	rm -rf build/
@@ -20,6 +21,10 @@ release:
 	./cmake_configure_and_build.sh "release"
 
 # Build a portable distribution of the executables and DLLs in a single dir
-portable:
+portable: release
 	./make_portable.sh "Client"
 	./make_portable.sh "Server"
+
+# Run the unit tests
+test: release
+	ctest --test-dir build/Release/ --output-on-failure

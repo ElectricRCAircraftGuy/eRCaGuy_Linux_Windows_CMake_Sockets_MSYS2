@@ -1,6 +1,6 @@
 # eRCaGuy_Linux_Windows_CMake_Sockets_MSYS2
 
-A demo of an elegant, cross-platform, multi-layered build system project which builds Linux/Unix sockets on both Linux and Windows, using MSYS2 in Windows.
+A demo of an elegant, cross-platform, multi-layered build system project which builds Linux/Unix/Berkeley sockets with CMake and gtest (googletest) on both Linux and Windows, using MSYS2 in Windows.
 
 
 # References
@@ -14,6 +14,7 @@ A demo of an elegant, cross-platform, multi-layered build system project which b
     1. Tutorial: https://cmake.org/cmake/help/latest/guide/tutorial/index.html
     1. All commands: https://cmake.org/cmake/help/latest/manual/cmake-commands.7.html
     1. `CMakePresets.json` and `CMakeUserPresets.json`: https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html
+1. My full `git submodule` tutorial: https://gabrielstaples.com/git-submodule-guide/
 
 
 # Linux Setup
@@ -102,17 +103,24 @@ All commands are to be run in a regular Bash terminal in Linux, or in [the base 
 The reason is that: of the 7 terminals provided by MSYS2, I believe the base `msys` one is the only one that supports building Unix sockets on Windows. 
 
 ```bash
-# Clean and build everything
+# Update submodules, such as googletest
+# - See my full `git submodule` tutorial here: 
+#   https://gabrielstaples.com/git-submodule-guide/
+git submodule update --init --recursive
+
+# Clean and build everything, including building and running unit tests
 ./build.sh
 
 # Or: call the make commands directly, which are otherwise called by build.sh
 make clean
-make
+make  # [BEST] build everything, including unit tests, and run the unit tests
 
 # More-granular
-make debug
-make release
-make portable
+make clean     # just clean 
+make debug     # just build the debug version
+make release   # just build the release version
+make portable  # ensure release version is built, & package a portable version
+make test      # ensure release version of unit tests is built, & run them
 
 
 # Lower-level bash script called by make
