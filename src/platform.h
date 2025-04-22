@@ -4,7 +4,7 @@
 // 
 // From: 
 // 1. https://stackoverflow.com/a/79228659/4561887
-// 2. https://github.com/ElectricRCAircraftGuy/eRCaGuy_Linux_Windows_CMake_Sockets_MSYS2/blob/main/src/platform.cpp
+// 2. https://github.com/ElectricRCAircraftGuy/eRCaGuy_Linux_Windows_CMake_Sockets_MSYS2/blob/main/src/platform.h
 // 
 // Print out some messages at compile time to show which platform we are 
 // compiling on.
