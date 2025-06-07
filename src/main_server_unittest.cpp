@@ -26,6 +26,13 @@ namespace
 TEST(MainServer, dummyTest)
 {
 	EXPECT_EQ(1, 2);
+
+	// prove when TESTING is defined
+    #ifdef TESTING
+	printf(">>> TESTING IS defined! <<<\n\n");
+	#else
+	printf(">>> TESTING is NOT defined! <<<\n\n");
+	#endif
 }
 
 } // anonymous namespace

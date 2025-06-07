@@ -15,28 +15,35 @@ add_subdirectory(src/third_party/googletest)
 # - See: https://cmake.org/cmake/help/latest/module/GoogleTest.html
 include(GoogleTest)
 
+# Function to configure a test target
+function(configure_test_target target)
+    # See: https://cmake.org/cmake/help/latest/command/target_compile_definitions.html
+    target_compile_definitions(${target} PRIVATE 
+        -DTESTING
+    )
+    target_link_libraries(${target} 
+        GTest::gtest_main 
+        compiler_flags
+    )
+    gtest_discover_tests(${target} 
+        EXTRA_ARGS --gtest_color=yes  # always run with colored output
+    )
+endfunction()
+
+# -----------------------------------------------------------
 # --- Add your unit tests here now, one at a time [START] ---
+# -----------------------------------------------------------
 
 add_executable(main_client_unittest
     "src/main_client_unittest.cpp"
 )
-target_link_libraries(main_client_unittest
-    GTest::gtest_main
-    compiler_flags
-)
-gtest_discover_tests(main_client_unittest
-    EXTRA_ARGS --gtest_color=yes  # always run with colored output
-)
+configure_test_target(main_client_unittest)
 
 add_executable(main_server_unittest
     "src/main_server_unittest.cpp"
 )
-target_link_libraries(main_server_unittest
-    GTest::gtest_main
-    compiler_flags
-)
-gtest_discover_tests(main_server_unittest
-    EXTRA_ARGS --gtest_color=yes  # always run with colored output
-)
+configure_test_target(main_server_unittest)
 
+# -----------------------------------------------------------
 # --- Add your unit tests here now, one at a time [END] ---
+# -----------------------------------------------------------
